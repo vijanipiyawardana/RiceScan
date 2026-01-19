@@ -1,4 +1,4 @@
-# Rice Type Classification using Computer Vision
+# RiceScan: Automated Rice Variety Identification from Images
 
 This project classifies rice types from images using a deep learning model
 (MobileNetV2) trained in PyTorch.
