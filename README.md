@@ -36,4 +36,5 @@ Custom dataset collected using smartphone images.
 - Detect insects or damaged grains
 
 ## Author
-Your Name
+Vijani Alenthuge
+MNLE, HU University of Applied Sciences, Utrecht, The Netherlands
