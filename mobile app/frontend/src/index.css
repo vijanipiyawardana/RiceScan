@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Premium Aesthetics */
+/* Premium Aesthetics - Rice/Agri Theme */
+body {
+  background: linear-gradient(135deg, #FAF9F6 0%, #FDFBF7 100%);
+  color: #4B3621;
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(79, 121, 66, 0.1);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+}
+
+.btn-primary {
+  background: linear-gradient(45deg, #4F7942, #76B041);
+  box-shadow: 0 4px 15px rgba(79, 121, 66, 0.3);
+  transition: all 0.3s ease;
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(79, 121, 66, 0.4);
+}
+
+.btn-secondary {
+  background: linear-gradient(45deg, #C19A6B, #E4D00A);
+  box-shadow: 0 4px 15px rgba(193, 154, 107, 0.3);
+  transition: all 0.3s ease;
+  color: white;
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(193, 154, 107, 0.4);
+}
