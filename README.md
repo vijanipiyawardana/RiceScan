@@ -31,6 +31,11 @@ Custom dataset collected using smartphone images.
 - 1. Upload image
 - 2. Capture image from camera
 
+### User interface
+![alt text](<ui/Screenshot 2026-01-20 at 03.24.33.png>)
+
+![alt text](<ui/Screenshot 2026-01-20 at 03.24.23.png>)
+
 ## Future Work
 - Add more rice varieties
 - Detect insects or damaged grains
