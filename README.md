@@ -3,6 +3,9 @@
 This project classifies rice types from images using a deep learning model
 (MobileNetV2) trained in PyTorch.
 
+Input: photo of rice grains​
+Output: predicted rice variety (ex: Basmati, Suwandel, Kalu Heenati)
+
 ## Problem
 Identifying rice varieties manually requires expertise and is time-consuming.
 This project provides an automated image-based solution.
