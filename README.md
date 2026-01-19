@@ -37,8 +37,12 @@ Custom dataset collected using smartphone images.
 ![alt text](<ui/Screenshot 2026-01-20 at 03.24.23.png>)
 
 ## Future Work
-- Add more rice varieties
-- Detect insects or damaged grains
+- Improve dataset size and diversity​: add more rice varieties
+- Extract deep features for clustering similar rice types​
+- Compare multiple CNN architectures
+- Extend the model to detect quality issues in rice grains​
+
+* Identify: insects or larvae on rice​, damaged grains, rotten or discolored grains​, mold or fungal growth 
 
 ## Author
 Vijani Alenthuge
