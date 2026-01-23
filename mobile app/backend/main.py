@@ -36,15 +36,15 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 # structure: MobileNetV2
 model = models.mobilenet_v2(weights=None)
-# Replace classifier head for 4 classes (as identified in inspection)
+# Replace classifier head for 7 classes (as identified in inspection)
 # MobileNetV2 classifier is a Sequential:
 # (0): Dropout
-# (1): Linear(in_features=1280, out_features=1000) -> Change to 4
-model.classifier[1] = torch.nn.Linear(model.classifier[1].in_features, 4)
+# (1): Linear(in_features=1280, out_features=1000) -> Change to 7
+model.classifier[1] = torch.nn.Linear(model.classifier[1].in_features, 7)
 
 # Load weights
 try:
-    state_dict = torch.load("rice_classifier.pth", map_location=device)
+    state_dict = torch.load("rice_classifier_new.pth", map_location=device)
     model.load_state_dict(state_dict)
     print("Custom model loaded successfully!")
 except Exception as e:
@@ -66,10 +66,13 @@ transform = transforms.Compose([
     )
 ])
 
-# Class Labels
-# Since we don't have a labels file, we'll use generic names.
-labels = ['keeri samba', 'rathu kekulu', 'samba', 'suwandel'] # Common 4-class rice datasets often have these. 
-# If incorrect, user can update. I will notify user.
+# Load Class Labels from JSON file
+labels_file = os.path.join(os.path.dirname(__file__), 'labels.json')
+with open(labels_file, 'r') as f:
+    labels_data = json.load(f)
+    labels = labels_data['classes']
+
+print(f"Loaded {len(labels)} rice classes: {', '.join(labels)}")
 
 @app.get("/")
 async def read_root():
@@ -90,19 +93,29 @@ async def classify_image(file: UploadFile = File(...)):
         with torch.no_grad():
             output = model(input_batch)
         
-        # Get top prediction
+        # Get probabilities for all classes
         probabilities = torch.nn.functional.softmax(output[0], dim=0)
-        top_prob, top_catid = torch.topk(probabilities, 1)
         
+        # Get top prediction
+        top_prob, top_catid = torch.topk(probabilities, 1)
         class_id = top_catid.item()
         confidence = top_prob.item()
-        
         label = labels[class_id] if class_id < len(labels) else f"Class {class_id}"
+        
+        # Create confidence scores for all classes
+        all_confidences = {}
+        for idx, prob in enumerate(probabilities.tolist()):
+            class_label = labels[idx] if idx < len(labels) else f"Class {idx}"
+            all_confidences[class_label] = float(prob)
+        
+        # Sort by confidence (descending)
+        sorted_confidences = dict(sorted(all_confidences.items(), key=lambda x: x[1], reverse=True))
         
         return JSONResponse(content={
             "class": label,
             "confidence": float(confidence),
-            "class_id": class_id
+            "class_id": class_id,
+            "all_confidences": sorted_confidences
         })
 
     except Exception as e:
